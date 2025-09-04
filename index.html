@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronograma de Evacuación de Semisólidos CAMI NE-24</title>
+    
+    <!-- Librerías Externas -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/frappe-gantt/0.6.1/frappe-gantt.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/frappe-gantt/0.6.1/frappe-gantt.min.js"></script>
+    
+    <!-- Librerías para exportación PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <!-- Hoja de estilos principal -->
+    <link rel="stylesheet" href="cronograma.css">
+    
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="p-4 md:p-8">
+    <div id="gantt-export-container" class="max-w-7xl mx-auto bg-white rounded-xl shadow-lg p-6">
+        <div class="mb-4 text-center">
+            <h1 class="text-3xl font-bold text-gray-800">Cronograma de Evacuación de Semisólidos NE-24 CAMI</h1>
+        </div>
+        
+        <!-- Controles superiores -->
+        <div class="flex justify-between items-center mb-4">
+            <label class="flex items-center gap-2">
+                <input type="checkbox" id="toggleResponsables" onchange="toggleResourcesTable()" class="rounded border-gray-300">
+                <span class="text-sm font-medium text-gray-700">Mostrar Responsables y Recursos</span>
+            </label>
+            <button id="export-pdf-btn" class="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-blue-600 text-white text-sm font-semibold shadow hover:bg-blue-700 active:bg-blue-800 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M3 3a2 2 0 012-2h6l4 4v10a2 2 0 01-2 2H5a2 2 0 01-2-2V3z"/><path d="M9 7a1 1 0 112 0v3.586l1.293-1.293a1 1 0 111.414 1.414L10 13.414 6.293 9.707a1 1 0 111.414-1.414L9 10.586V7z"/></svg>
+                Exportar a PDF
+            </button>
+        </div>
+
+        <!-- Cronograma Gantt -->
+        <div class="gantt-wrapper rounded-lg border border-gray-200 mb-6">
+            <div class="gantt-container">
+                <svg id="gantt"></svg>
+                <div id="gantt-footer" class="w-full"></div>
+            </div>
+        </div>
+
+        <!-- Tabla de Responsables y Recursos (inicialmente oculta) -->
+        <div id="resources-table" class="hidden mt-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Responsables y Recursos por Tarea</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tarea</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Responsable</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Recursos</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fechas</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resources-table-body" class="bg-white divide-y divide-gray-200">
+                        <!-- Se llenará dinámicamente con JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enlace a tu archivo JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
+
